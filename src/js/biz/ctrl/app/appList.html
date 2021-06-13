@@ -1,81 +1,13 @@
-<div ng-controller="listCtrl" ng-init="initView()">
- <!--注册列表-->
- <div class="row" style="margin-left: 1px; margin-top:10px; height: 50px;">
-  <div class="col-md-6" style="margin-bottom: 10px;">
-   <span style="font-size: 30px;font-weight: bold;"><i class="fa fa-linux"></i>应用列表</span>
-  </div>
-  <div class="col-md-6">
-  </div>
- </div>
-
- <div class="separator"></div>
-
- <div class="container-fluid">
-  <div class="row" style="margin-top: 20px; margin-bottom: 20px;">
-   <div class="col-md-12">
-    <div class="card">
-     <!--search table-->
-     <div class="inputs-header">
-      <span class="brand" style="font-size: 13px;">| 应用列表</span>
-      <input class="form-control width-200" placeholder="关键字" ng-model="searchKey">
-      <!--      <button class="btn btn-primary"-->
-      <!--              style="float: right; margin-right: 10px; height: 30px;font-size: 12px;"-->
-      <!--              data-ng-click="initView()">刷新-->
-      <!--      </button>-->
-     </div>
-
-     <!--table core-->
-     <div class="card-body" style="padding: 0 0;">
-      <table class="table" style="border-left: none; border-right:none;margin-top: 10px;">
-       <thead>
-       <tr style="background: #F3F5F7;">
-        <td style="width: 8%;">应用ID</td>
-        <td style="width: 15%;">app Name</td>
-        <td style="width: 10%">key</td>
-        <td style="width: 10%">secret</td>
-        <td style="width: 20%">添加时间</td>
-        <td style="width: 5%">是否禁用</td>
-        <td style="width: 5%">是否删除</td>
-        <td style="width: 30%">操作</td>
-       </tr>
-       </thead>
-       <tbody>
-       <tr dir-paginate="register in registerList | orderBy :'lastTime' :true  | filter: searchKey | itemsPerPage: rulesPageConfig.pageSize "
-           current-page="rulesPageConfig.currentPageIndex" pagination-id="entriesPagination">
-        <td style="font-size: 21px"><code>{{register.appId}}</code></td>
-        <td style="font-size: 21px"><code>{{register.appName}}</code></td>
-        <td style="font-size: 21px"><code>{{register.appkey}}</code></td>
-        <td style="font-size: 21px"><code>{{register.secret}}</code></td>
-        <td style="font-size: 21px"><code>{{register.addTime | date:'yyyy-MM-dd HH:mm:ss'}}</code></td>
-        <td style="font-size: 21px"><code>{{register.disabled}}</code></td>
-        <td style="font-size: 21px"><code>{{register.isDel}}</code></td>
-        <td>
-         <a ui-sref="home.edit({appId:'{{register.appId}}',appName:'{{register.appName}}'})"
-            class="btn btn-info">
-          <i class="glyphicon glyphicon-check"></i>&nbsp;&nbsp;查看数据</a>
-        </td>
-       </tr>
-       </tbody>
-      </table>
-     </div>
-
-     <!-- pagination -->
-     <div class="pagination-footer">
-      <dir-pagination-controls boundary-links="true"
-                               template-url="views/page/pagination.tpl.html"
-                               pagination-id="entriesPagination" on-page-change="">
-      </dir-pagination-controls>
-      <div class="tools" style="">
-       <span>共 {{rulesPageConfig.totalCount}} 条记录, </span>
-       <span>
-        每页<input class="form-control" ng-model="rulesPageConfig.pageSize"> 条记录
-       </span>
-      </div>
-      <!-- .tools -->
-     </div>
+<div ng-controller="listCtrl">
+    <!--注册列表-->
+    <div class="row" style="margin-left: 1px; margin-top:10px; height: 50px;">
+        <div class="col-md-6" style="margin-bottom: 10px;">
+            <span style="font-size: 30px;font-weight: bold;"><i class="fa fa-linux"></i>使用教程</span>
+        </div>
+        <div class="col-md-6">
+        </div>
     </div>
-   </div>
-  </div>
- </div>
+
+    <div class="separator"></div>
 
 </div>

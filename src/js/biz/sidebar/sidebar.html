@@ -18,33 +18,19 @@
 
             <li ng-class="{active: true}" ng-repeat="entry in apps | filter: { app: searchApp}">{{dropDown}}
                 <a href="" data-ng-click="click($event)" collapse="{{collpaseall == 1}}" style="font-size: 16px;">
-                    &nbsp; &nbsp;{{entry.app}}
+                    &nbsp;&nbsp;{{entry.businessName}}
                     <span class="fa arrow"></span>
                 </a>
 
                 <ul class="nav nav-second-level" ng-show="entry.active">
-<!--                    <li ui-sref-active="active">-->
-<!--                        <a ui-sref="home.list()">-->
-<!--                            <i class="fa fa-linux"></i>&nbsp;&nbsp;dubbo 服务</a>-->
-<!--                    </li>-->
-<!--                    <li>-->
-<!--                        <a ui-sref="home.http()">-->
-<!--                            <i class="fa fa-html5"></i>&nbsp;&nbsp;http 服务</a>-->
-<!--                    </li>-->
-                    <!--<li>-->
-                    <!--<a ui-sref="home.switch({account:account})">-->
-                    <!--<i class="fa fa-bar-chart"></i>&nbsp;&nbsp;交换机列表</a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                    <!--<a ui-sref="home.eip_list({account:account})">-->
-                    <!--<i class="fa fa-bar-chart"></i>&nbsp;&nbsp;EIP列表</a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                    <!--<a ui-sref="home.rds({account:account})">-->
-                    <!--<i class="fa fa-bar-chart"></i>&nbsp;&nbsp;RDS列表</a>-->
-                    <!--</li>-->
+                    <li ng-repeat="model in entry.modelData">
+                        <a ui-sref="home.list({id:'{{model.modelId}}'})">
+                            <i class="fa fa-pencil"></i>&nbsp;&nbsp;{{model.modelName}}
+                        </a>
+                    </li>
                 </ul>
             </li>
+
         </ul>
     </div>
 </div>

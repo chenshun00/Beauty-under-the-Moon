@@ -11,6 +11,7 @@ angular.module(APPName)
       restrict: 'E',
       replace: true,
       controller: function ($scope) {
+          $scope.accounts = ["11","bbb","cc"]
       }
     }
   }]);
