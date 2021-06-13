@@ -1,0 +1,50 @@
+<div class="navbar-default sidebar" role="navigation" style="overflow-y: auto;">
+    <div class="sidebar-nav navbar-collapse">
+        <ul class="nav in" id="side-menu">
+            <li class="sidebar-search">
+                <div class="input-group" style="">
+                    <input type="text" class="form-control highlight-border" placeholder="应用名" ng-model="searchApp">
+                    <span class="input-group-btn">
+            <button class="btn btn-secondary btn-default-inverse" type="button">搜索</button>
+          </span>
+                </div>
+            </li>
+
+            <li ui-sref-active="active">
+                <a ui-sref="home.home" style="font-size:16px;">
+                    <span class="glyphicon glyphicon-dashboard"></span>
+                    &nbsp;&nbsp;首页</a>
+            </li>
+
+            <li ng-class="{active: true}" ng-repeat="entry in apps | filter: { app: searchApp}">{{dropDown}}
+                <a href="" data-ng-click="click($event)" collapse="{{collpaseall == 1}}" style="font-size: 16px;">
+                    &nbsp; &nbsp;{{entry.app}}
+                    <span class="fa arrow"></span>
+                </a>
+
+                <ul class="nav nav-second-level" ng-show="entry.active">
+<!--                    <li ui-sref-active="active">-->
+<!--                        <a ui-sref="home.list()">-->
+<!--                            <i class="fa fa-linux"></i>&nbsp;&nbsp;dubbo 服务</a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a ui-sref="home.http()">-->
+<!--                            <i class="fa fa-html5"></i>&nbsp;&nbsp;http 服务</a>-->
+<!--                    </li>-->
+                    <!--<li>-->
+                    <!--<a ui-sref="home.switch({account:account})">-->
+                    <!--<i class="fa fa-bar-chart"></i>&nbsp;&nbsp;交换机列表</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                    <!--<a ui-sref="home.eip_list({account:account})">-->
+                    <!--<i class="fa fa-bar-chart"></i>&nbsp;&nbsp;EIP列表</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                    <!--<a ui-sref="home.rds({account:account})">-->
+                    <!--<i class="fa fa-bar-chart"></i>&nbsp;&nbsp;RDS列表</a>-->
+                    <!--</li>-->
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
