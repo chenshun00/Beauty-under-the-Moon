@@ -1,6 +1,6 @@
 {
-  "name": "Getting Started Example",
-  "description": "Build an Extension!",
+  "name": "API 插件",
+  "description": "API插件，用于发起http请求，生成code sample",
   "version": "1.0",
   "manifest_version": 3,
   "background": {
