@@ -12,5 +12,6 @@ angular.module(APPName, ['oc.lazyLoad', 'ui.router',
         $stateProvider
             .state(value.home.word, value.home)
             .state(value.homeHome.word, value.homeHome)
-            .state(value.homeEdit.word, value.homeEdit);
+            .state(value.homeEdit.word, value.homeEdit)
+            .state(value.homeDetail.word, value.homeDetail);
       }]);
