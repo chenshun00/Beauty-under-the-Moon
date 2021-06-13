@@ -1,7 +1,7 @@
 angular.module(APPName)
     .service('ProjectService', ['$http', function ($http) {
         this.getBusiness = function () {
-            return $http({url: _domain + '/api/business/list', method: 'GET'});
+            return $http({url: _domain + '/api/front/projects', method: 'GET'});
         }
     }])
     .directive('sidebar', ['$stateParams', 'ProjectService', function () {
@@ -12,13 +12,11 @@ angular.module(APPName)
             scope: {},
             controller: function ($scope, $stateParams, $location, ProjectService) {
                 ProjectService.getBusiness().success(function (result) {
-                    //const info = "{\"code\":0,\"msg\":\"success\",\"data\":[{\"app\":\"功能列表\"}]}";
+                    //const info = "{\"code\":0,\"msg\":\"success\",\"data\":[{\"tutorials\":\"功能列表\"}]}";
                     const initHashApp = $location.path().split('/')[3];
-                    $scope.apps = result.data;
-                    $scope.admin = result.admin;
-                    console.log($scope.admin)
+                    $scope.apps = result.listApiDetails;
                     $scope.apps.forEach(function (item) {
-                        if (item.businessName === initHashApp) {
+                        if (item.projectName === initHashApp) {
                             item.active = true;
                         }
                     });
@@ -44,13 +42,13 @@ angular.module(APPName)
                 $scope.addSearchApp = function () {
                     let findApp = false;
                     for (let i = 0; i < $scope.apps.length; i++) {
-                        if ($scope.apps[i].businessName === $scope.searchApp) {
+                        if ($scope.apps[i].projectName === $scope.searchApp) {
                             findApp = true;
                             break;
                         }
                     }
                     if (!findApp) {
-                        $scope.apps.push({businessName: $scope.searchApp});
+                        $scope.apps.push({projectName: $scope.searchApp});
                     }
                 };
             }

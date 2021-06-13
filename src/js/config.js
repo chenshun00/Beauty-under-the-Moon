@@ -31,12 +31,12 @@ const value = {
   homeHome: {
     word: 'home.home',
     url: '/home',
-    templateUrl: 'js/biz/ctrl/app/appList.html',
+    templateUrl: 'js/biz/ctrl/tutorials/tutorials.html',
     resolve: {
       loadMyDirectives: ['$ocLazyLoad', function ($ocLazyLoadProvider) {
         return $ocLazyLoadProvider.load({
           name: APPName,
-          files: ['js/biz/ctrl/app/appCtrl.js']
+          files: ['js/biz/ctrl/tutorials/tutorialsCtrl.js']
         });
       }]
     }
@@ -45,12 +45,25 @@ const value = {
     word: 'home.edit',
     url: '/edit/{appId}/{appName}',
     templateUrl: 'js/biz/ctrl/all/all.html',
-    controller: 'detailController',
     resolve: {
       loadMyDirectives: ['$ocLazyLoad', function ($ocLazyLoadProvider) {
         return $ocLazyLoadProvider.load({
           name: APPName,
           files: ['js/biz/ctrl/all/allCtrl.js']
+        });
+      }]
+    }
+  },
+  homeDetail:{
+    word: 'home.usage',
+    url :'/detail/{action}/{title}',
+    templateUrl: 'js/biz/ctrl/usage/usage.html',
+    controller: 'detailController',
+    resolve: {
+      loadMyDirectives: ['$ocLazyLoad', function ($ocLazyLoadProvider) {
+        return $ocLazyLoadProvider.load({
+          name: APPName,
+          files: ['js/biz/ctrl/usage/usage.js']
         });
       }]
     }

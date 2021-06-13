@@ -1,4 +1,4 @@
-<div class="navbar-default sidebar" role="navigation" style="overflow-y: auto;">
+<div class="navbar-default sidebar" role="navigation" style="overflow-y: auto;margin-top: 0">
     <div class="sidebar-nav navbar-collapse">
         <ul class="nav in" id="side-menu">
             <li class="sidebar-search">
@@ -17,15 +17,15 @@
             </li>
 
             <li ng-class="{active: true}" ng-repeat="entry in apps | filter: { app: searchApp}">{{dropDown}}
-                <a href="" data-ng-click="click($event)" collapse="{{collpaseall == 1}}" style="font-size: 16px;">
-                    &nbsp;&nbsp;{{entry.businessName}}
+                <a href="" data-ng-click="click($event)" collapse="{{collpaseall == 1}}" style="font-size: 18px;">
+                    &nbsp;&nbsp;{{entry.projectName}}
                     <span class="fa arrow"></span>
                 </a>
-
                 <ul class="nav nav-second-level" ng-show="entry.active">
-                    <li ng-repeat="model in entry.modelData">
-                        <a ui-sref="home.list({id:'{{model.modelId}}'})">
-                            <i class="fa fa-pencil"></i>&nbsp;&nbsp;{{model.modelName}}
+                    <li ng-repeat="model in entry.categories[0].apiDetails">
+                        <a ui-sref="home.usage({action:'{{model.action}}',title:'{{model.title}}'})">
+                            <span style="font-size: 17px"> {{model.action}}</span><br>
+                            (<span style="font-size: small">{{model.title}}</span>)
                         </a>
                     </li>
                 </ul>

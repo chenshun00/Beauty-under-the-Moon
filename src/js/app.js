@@ -1,6 +1,4 @@
 "use strict";
-let app;
-const tenantId = '2988123123123123';
 angular.module(APPName, ['oc.lazyLoad', 'ui.router',
   'ngDialog', 'angularUtils.directives.dirPagination',
   'json-tree', 'angular-popups'])

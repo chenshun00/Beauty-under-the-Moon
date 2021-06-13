@@ -1,4 +1,4 @@
-const _domain = 'http://apaas.example.com'
+const _domain = 'https://api.raycloud.com'
 const request = {
     AppService: {
         appList(obj) {
