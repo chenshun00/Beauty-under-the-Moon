@@ -1,0 +1,47 @@
+<form class="form-inline" role="form">
+    <div class="form-group">
+        <input ng-model="postman.url" type="text" class="form-control" style="width: 510px" placeholder="请输入URL"/>
+    </div>
+    <div class="form-group">
+        <select ng-model="postman.method" class="form-control">
+            <option>GET</option>
+            <option>POST</option>
+        </select>
+    </div>
+
+    <div ng-if="postman.method=='POST'">
+        <div id="data-mode-selector" class="btn-group clearfix" data-toggle="buttons-radio">
+            <a class="btn active" data-mode="params">form-data</a>
+            <a class="btn" data-mode="urlencoded">x-www-form-urlencoded</a>
+            <a class="btn" data-mode="raw">raw</a>
+        </div>
+
+        <div>
+            <div class="keyvalueeditor-row"><input type="text" class="keyvalueeditor-key" placeholder="Key"
+                                                   name="keyvalueeditor-key"><input type="text"
+                                                                                    class="keyvalueeditor-value keyvalueeditor-value-text"
+                                                                                    placeholder="Value"
+                                                                                    name="keyvalueeditor-value"><input
+                    type="file" multiple="" class="keyvalueeditor-value keyvalueeditor-value-file"
+                    placeholder="Value" name="keyvalueeditor-value" value="" style="display: none;"><select
+                    class="keyvalueeditor-valueTypeSelector">
+                <option value="text" selected="">Text</option>
+                <option value="file">File</option>
+            </select><a tabindex="-1" class="keyvalueeditor-delete"><img class="deleteButton"
+                                                                         src="assert/delete.png"></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="separator"></div>
+    <div style="margin-top: 2px">
+        <!-- 标准的按钮 -->
+        <button type="button" class="btn btn-default">默认按钮</button>
+        <!-- 提供额外的视觉效果，标识一组按钮中的原始动作 -->
+        <button type="button" class="btn btn-primary">原始按钮</button>
+        <!-- 表示一个成功的或积极的动作 -->
+        <button type="button" class="btn btn-success">成功按钮</button>
+        <!-- 信息警告消息的上下文按钮 -->
+        <button type="button" class="btn btn-info">信息按钮</button>
+    </div>
+</form>

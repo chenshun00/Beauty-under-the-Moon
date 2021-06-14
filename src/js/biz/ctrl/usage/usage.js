@@ -26,6 +26,26 @@ angular.module(APPName)
             title: title
         }
 
+        $scope.postman = {
+            method:'GET'
+        }
+
+        $scope.properties = [
+            {field: 'ZoneId'},
+            {field: 'CidrBlock'},
+            {field: 'VpcId'},
+        ];
+
+        $scope.clear = function () {
+            $scope.properties.forEach(function (item) {
+                item.value = null
+            });
+        };
+
+        $scope.request = function () {
+
+        }
+
         $scope.init = function () {
             tabFun(1, 1)
             tabFun(2, 1)

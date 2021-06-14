@@ -1,1 +1,28 @@
-<h2>如何规划呢....</h2>
+<div>
+    <div class="card" style="margin-bottom:0px;border:0">
+        <div class="col-md-12" style="margin-left: 0;padding-left: 0;margin-top: 1px">
+            <!-- .tools-header -->
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 l_card" style="width: 30%;height:600px">
+                        <div style="height: 550px">
+                            <div ng-repeat="property in properties">
+                                <label style="font-weight: normal;margin-left: 0"> {{property.field}}
+                                    <input style="width: 250px" ng-model="property.value"
+                                           class="form-control input-control"
+                                           type="text"
+                                           placeholder="字符串">
+                                </label>
+                            </div>
+                        </div>
+                        <button class="btn btn-default" data-ng-click="clear()">清 空</button>
+                        <button class="btn btn-success" data-ng-click="request()">发起调用</button>
+                    </div>
+                    <div class="col-md-8" style="height:700px">
+                        <div ng-include="'js/biz/ctrl/usage/children/postman.html'"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
