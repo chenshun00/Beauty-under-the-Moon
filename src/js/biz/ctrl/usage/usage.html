@@ -1,7 +1,14 @@
-<div ng-controller="detailController">
+<div>
     <h2 style="color: #ff392b;margin-top: 0">
         {{content.action}}
-        <span style="font-size: small">{{content.title}}</span>
+        <a target="_blank" style="color: #ff392b" href="{{content.url}}">
+            <span style="font-size: small">
+                {{content.title}}
+            </span>
+            <span style="font-size: small">
+                (点我查看文档)
+            </span>
+        </a>
     </h2>
 
     <div class="container" style="margin-left: 0">

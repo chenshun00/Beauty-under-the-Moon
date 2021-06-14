@@ -56,7 +56,7 @@ const value = {
   },
   homeDetail:{
     word: 'home.usage',
-    url :'/detail/{action}/{title}',
+    url :'/detail/{action}/{title}/{projectId}',
     templateUrl: 'js/biz/ctrl/usage/usage.html',
     controller: 'detailController',
     resolve: {

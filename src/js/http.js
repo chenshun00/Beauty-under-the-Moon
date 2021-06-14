@@ -16,11 +16,11 @@ const request = {
                 method: 'POST'
             });
         },
-        getOrg(obj, data) {
+        getApiDetail(obj, data) {
             return obj({
-                url: _domain + '/api/org/describe',
+                url: _domain + '/api/front/api/detail',
                 params: data,
-                method: 'POST'
+                method: 'GET'
             });
         }
     }

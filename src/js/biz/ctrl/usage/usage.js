@@ -2,19 +2,24 @@
 angular.module(APPName)
     .service('AllService', ['$http', function ($http) {
         $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
-        this.getStaff = function (appId, tenantId) {
-            const data = {appId: appId, tenantId: tenantId}
-            return request.AllService.getStaff($http, data)
-        };
-        this.getOrg = function (appId, tenantId) {
-            const data = {appId: appId, tenantId: tenantId}
-            return request.AllService.getOrg(appId, data)
+
+        this.getApiDetail = function (action, projectId) {
+            const data = {action: action, projectId: projectId, type: 0};
+            return request.AllService.getApiDetail($http, data)
         }
+
     }])
 
     .controller('detailController', ['AllService', '$scope', '$stateParams', 'Popup', function (AllService, $scope, $stateParams, Popup) {
         const action = $stateParams.action;//传递近来的ID参数
         const title = $stateParams.title;//传递近来的ID参数
+        const projectId = $stateParams.projectId;//传递近来的ID参数
+
+        $scope.postman = {
+            method: 'GET'
+        }
+
+        $scope.jsonData = "{'name':1}";
 
         $scope.content = {
             fc: {activeTab: 1},
@@ -23,18 +28,36 @@ angular.module(APPName)
             org: [],
             classFie: [],
             action: action,
+            url: 'http://api-inner.raycloud.com/#/?menuIdx=' + projectId + '&action=' + action,
             title: title
         }
 
-        $scope.postman = {
-            method:'GET'
-        }
+        $scope.properties = [];
 
-        $scope.properties = [
-            {field: 'ZoneId'},
-            {field: 'CidrBlock'},
-            {field: 'VpcId'},
-        ];
+        init();
+
+        function init() {
+            AllService.getApiDetail(action, projectId).success(function (data) {
+                if (data.code === 0) {
+                    $scope.postman.method = data.method;
+                    $scope.postman.url = _domain + data.url;
+                    const req = data.req;
+                    if (req.modelVars) {
+                        req.modelVars.forEach(function (item) {
+                            const params = {};
+                            params.field = item.name;
+                            params.type = item.type;
+                            params.required = item.required;
+                            params.desc = item.desc;
+                            $scope.properties.push(params)
+                        })
+                    }
+
+                } else {
+                    Popup.notice(data.errmsg, 2000)
+                }
+            })
+        }
 
         $scope.clear = function () {
             $scope.properties.forEach(function (item) {
@@ -42,17 +65,45 @@ angular.module(APPName)
             });
         };
 
-        $scope.request = function () {
+        const temp ={string: 'str',
+                number: 12.34,
+                boolean: true,
+                array: [3, 1, 2],
+                object: {
+                    anotheObject: {
+                        key1: 1,
+                        bool: true
+                    }
+                },
+                arrayOfObjects: [{
+                    key1: 'Hello',
+                    key2: 'World!'
+                }, {
+                    bool: true,
+                    someFunction: function () {
+                        return 'some function'
+                    }
+                },
+                    true,
+                    []
+                ],
+                function1: function () {
+                    alert('This is function1 !');
+                },
+                null: null,
+                undefined: undefined
+            };
 
+        $scope.send = function () {
+            $scope.jsonData = JSON.stringify(temp, undefined, 4);
+            console.log($scope.jsonData)
         }
 
-        $scope.init = function () {
-            tabFun(1, 1)
-            tabFun(2, 1)
-        }
-
-        $scope.tabFun = function (tabIndex, tab) {
-            tabFun(tabIndex, tab);
+        /**
+         * @see clear()
+         */
+        $scope.reset = function () {
+            $scope.clear();
         }
 
         $scope.choose = function ($event, staff) {
@@ -60,27 +111,4 @@ angular.module(APPName)
             staff.checked = !staff.checked
         };
 
-        function tabFun(tabIndex, tab) {
-            if (tabIndex === 1) {
-                $scope.content.fc.activeTab = tab
-                if (tab === 1) {
-                    AllService.getStaff(appId, tenantId).success(function (data) {
-                        $scope.content.staffList = data.data
-                    });
-                } else if (tab === 2) {
-
-                } else if (tab === 3) {
-
-                }
-            } else if (tabIndex === 2) {
-                $scope.content.fcc.activeTab = tab
-                if (tab === 1) {
-
-                } else if (tab === 2) {
-
-                }
-            } else {
-                alert("数据不对");
-            }
-        }
     }]);

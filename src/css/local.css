@@ -82,3 +82,12 @@
     width: 100%;
     border-radius: 5px
 }
+
+textarea{
+    /*别忘了文本域的box-sizing属性值是border-box;所有的边框和padding都是在你固定的宽高的基础上绘制*/
+    /*去除点击出现轮廓颜色*/
+    outline: none;
+    /*如果有需要，去掉右下角的可拉伸变大小的图标和功能*/
+    resize: none;
+    /*padding已在重置样式中去除，如果没有去除，记得有padding哦*/
+}
