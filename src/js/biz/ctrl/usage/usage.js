@@ -54,6 +54,7 @@ angular.module(APPName)
                         req.modelVars.forEach(function (item) {
                             const params = {};
                             params.field = item.name;
+                            params.value = item.mockData;
                             params.type = item.type;
                             params.required = item.required;
                             params.desc = item.desc;
@@ -78,14 +79,23 @@ angular.module(APPName)
             $scope.properties.forEach(function (item) {
                 data[item.field] = item.value
             })
+            $scope.jsonData = null;
             $http({
                 url: $scope.postman.url,
                 params: data,
                 method: $scope.postman.method
             }).success(function (data) {
-                $scope.jsonData = data
+                try {
+                    $scope.jsonData = JSON.stringify(data, undefined, 4)
+                } catch (e) {
+                    $scope.jsonData = data
+                }
             }).error(function (data) {
-                $scope.jsonData = data
+                try {
+                    $scope.jsonData = JSON.stringify(data, undefined, 4)
+                } catch (e) {
+                    $scope.jsonData = data
+                }
             });
         }
 
