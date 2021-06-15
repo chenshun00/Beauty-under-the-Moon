@@ -10,7 +10,7 @@ angular.module(APPName)
 
     }])
 
-    .controller('detailController', ['AllService', '$scope', '$stateParams', 'Popup', function (AllService, $scope, $stateParams, Popup) {
+    .controller('detailController', ['AllService', '$http', '$scope', '$stateParams', 'Popup', function (AllService, $http, $scope, $stateParams, Popup) {
         const action = $stateParams.action;//传递近来的ID参数
         const title = $stateParams.title;//传递近来的ID参数
         const projectId = $stateParams.projectId;//传递近来的ID参数
@@ -65,38 +65,24 @@ angular.module(APPName)
             });
         };
 
-        const temp ={string: 'str',
-                number: 12.34,
-                boolean: true,
-                array: [3, 1, 2],
-                object: {
-                    anotheObject: {
-                        key1: 1,
-                        bool: true
-                    }
-                },
-                arrayOfObjects: [{
-                    key1: 'Hello',
-                    key2: 'World!'
-                }, {
-                    bool: true,
-                    someFunction: function () {
-                        return 'some function'
-                    }
-                },
-                    true,
-                    []
-                ],
-                function1: function () {
-                    alert('This is function1 !');
-                },
-                null: null,
-                undefined: undefined
-            };
-
         $scope.send = function () {
-            $scope.jsonData = JSON.stringify(temp, undefined, 4);
-            console.log($scope.jsonData)
+            const data = {action: $scope.content.action}
+            $scope.properties.forEach(function (item) {
+                data[item.field] = item.value
+            })
+            $http({
+                url: $scope.postman.url,
+                params: data,
+                method: $scope.postman.method
+            }).success(function (data) {
+                $scope.jsonData = data
+            }).error(function (data) {
+                $scope.jsonData = data
+            });
+        }
+
+        $scope.request = function () {
+            $scope.send()
         }
 
         /**
