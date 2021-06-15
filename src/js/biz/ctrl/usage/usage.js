@@ -43,8 +43,12 @@ angular.module(APPName)
         function init() {
             AllService.getApiDetail(action, projectId).success(function (data) {
                 if (data.code === 0) {
+                    let domain = data.domain || _domain
+                    if (domain.indexOf('http') === -1) {
+                        domain = 'http://' + domain
+                    }
                     $scope.postman.method = data.method;
-                    $scope.postman.url = _domain + data.url;
+                    $scope.postman.url = domain + data.url;
                     const req = data.req;
                     if (req.modelVars) {
                         req.modelVars.forEach(function (item) {
