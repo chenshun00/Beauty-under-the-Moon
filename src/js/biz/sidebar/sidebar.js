@@ -10,17 +10,39 @@ angular.module(APPName)
             restrict: 'E',
             replace: true,
             scope: {},
-            controller: function ($scope, $stateParams, $location, ProjectService) {
+            controller: function ($rootScope, $scope, $stateParams, $location, ProjectService) {
+                $scope.apps = [];
+                $scope.sidebarProject = {projectInfo: [], projectId: '请选择项目'};
                 ProjectService.getBusiness().success(function (result) {
-                    //const info = "{\"code\":0,\"msg\":\"success\",\"data\":[{\"tutorials\":\"功能列表\"}]}";
                     const initHashApp = $location.path().split('/')[3];
-                    $scope.apps = result.listApiDetails;
-                    $scope.apps.forEach(function (item) {
-                        if (item.projectName === initHashApp) {
-                            item.active = true;
+                    let first = false;
+                    const data = result.listApiDetails;
+                    data.forEach(function (item) {
+                        if (!first) {
+                            first = true
+                            $scope.sidebarProject.projectId = item.projectId
+                        }
+                        const temp = {
+                            projectId: item.projectId,
+                            categories: item.categories,
+                            projectName: item.projectName
+                        };
+                        $scope.sidebarProject.projectInfo.push(temp)
+                    });
+                    $scope.projectChange($scope.sidebarProject.projectId)
+                })
+
+                $scope.projectChange = function (projectId) {
+                    $scope.apps = [];
+                    $scope.sidebarProject.projectInfo.forEach(function (item) {
+                        if (item.projectId === projectId) {
+                            item.categories.forEach(function (zz) {
+                                $scope.apps.push({catName:zz.catName,apiDetails:zz.apiDetails});
+                            })
                         }
                     });
-                })
+                    console.log($scope.apps)
+                }
 
                 // toggle side bar
                 $scope.click = function ($event) {

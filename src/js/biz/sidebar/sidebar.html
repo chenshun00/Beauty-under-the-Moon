@@ -2,12 +2,14 @@
     <div class="sidebar-nav navbar-collapse">
         <ul class="nav in" id="side-menu">
             <li class="sidebar-search">
-                <div class="input-group" style="">
-                    <input type="text" class="form-control highlight-border" placeholder="应用名" ng-model="searchApp">
-                    <span class="input-group-btn">
-            <button class="btn btn-secondary btn-default-inverse" type="button">搜索</button>
-          </span>
-                </div>
+                <label>
+                    <select ng-model="sidebarProject.projectId" ng-change="projectChange(sidebarProject.projectId)"
+                            class="form-control" style="width: 280px">
+                        <option ng-repeat="pp in sidebarProject.projectInfo" value="{{pp.projectId}}">
+                            {{pp.projectName}}
+                        </option>
+                    </select>
+                </label>
             </li>
 
             <li ui-sref-active="active">
@@ -18,11 +20,11 @@
 
             <li ng-class="{active: true}" ng-repeat="entry in apps | filter: { app: searchApp}">{{dropDown}}
                 <a href="" data-ng-click="click($event)" collapse="{{collpaseall == 1}}" style="font-size: 18px;">
-                    &nbsp;&nbsp;{{entry.projectName}}
+                    &nbsp;&nbsp;{{entry.catName}}
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="nav nav-second-level" ng-show="entry.active">
-                    <li ng-repeat="model in entry.categories[0].apiDetails">
+                    <li ng-repeat="model in entry.apiDetails">
                         <a ui-sref="home.usage({action:'{{model.action}}',title:'{{model.title}}',projectId:'{{model.projectId}}'})">
                             <span style="font-size: 17px"> {{model.action}}</span><br>
                             (<span style="font-size: small">{{model.title}}</span>)

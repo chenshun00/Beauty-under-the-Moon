@@ -1,4 +1,4 @@
-const _domain = 'https://api.raycloud.com'
+const _domain = 'http://api-inner.raycloud.com'
 const request = {
     AppService: {
         appList(obj) {
