@@ -1,10 +1,10 @@
-<ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active">
-        <a aria-controls="home" role="tab" data-ng-click="content.fc.activeTab=1;" data-toggle="tab"><i
-                class="fa fa-user"></i>Http Request</a>
-    </li>
-    <li role="presentation">
-        <a data-ng-click="content.fc.activeTab=2;" aria-controls="profile" role="tab" data-toggle="tab"><i
-                class="fa fa-envelope"></i>Code Sample</a>
-    </li>
-</ul>
+<div>
+    <md-tabs md-selected="selectedTab" class="fff">
+        <md-tab label="HTTP请求">
+            <div ng-include="'js/biz/ctrl/usage/children/request.html'"></div>
+        </md-tab>
+        <md-tab label="代码实例">
+            开发中...
+        </md-tab>
+    </md-tabs>
+</div>

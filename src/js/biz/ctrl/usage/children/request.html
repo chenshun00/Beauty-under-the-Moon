@@ -1,26 +1,42 @@
 <div>
-    <div class="card" style="margin-bottom:0px;border:0">
+    <div class="card" style="margin-bottom:0;border:0">
         <div class="col-md-12" style="margin-left: 0;padding-left: 0;margin-top: 1px">
             <!-- .tools-header -->
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-4" style="width: 30%;height:100%">
-                        <div style="height: 100%">
-                            <div ng-repeat="property in properties">
-                                <label style="font-weight: normal;margin-left: 0"> {{property.field}}
-                                    <input style="width: 250px" ng-model="property.value"
-                                           class="form-control input-control"
-                                           type="text"
-                                           placeholder="{{property.desc}}">
-                                </label>
+                    <div class="col-md-3" style="height:500px">
+                        <div style="height: 400px;overflow: auto">
+                            <div ng-show="properties.length > 0">
+                                <div ng-repeat="property in properties">
+                                    <label style="font-weight: normal;margin-left: 0;width: 100%"> {{property.field}}
+                                        <input style="width: 100%" ng-model="property.value"
+                                               class="form-control input-control"
+                                               type="text"
+                                               placeholder="{{property.desc}}">
+                                    </label>
+                                </div>
+                            </div>
+                            <div ng-show="properties.length == 0">
+                                <span style="background-color: rgba(135,252,255,0.02);font-size: small">
+                                    😯 这个请求没有参数
+                                </span>
                             </div>
                         </div>
-                        <div ng-show="properties.length > 0">
-                            <button class="btn btn-default" data-ng-click="clear()">清 空</button>
-                            <button class="btn btn-success" data-ng-click="request()">发起调用</button>
+
+                        <div style="margin-bottom: 1px;display:flex">
+                            <button style="margin: 5px" class="btn btn-default" data-ng-click="clear()">清 空
+                            </button>
+                            <!--                            <md-switch style="margin:0" ng-model="data.switch1" aria-label="Switch 1">-->
+                            <!--                                只看必填-->
+                            <!--                            </md-switch>-->
+                            <button style="margin: 5px" class="btn btn-default" data-ng-click="history()">调用历史
+                            </button>
+                            <button style="margin: 5px" class="btn btn-default" data-ng-click="request()">发起调用
+                            </button>
                         </div>
                     </div>
-                    <div class="col-md-8" style="height:700px">
+
+                    <div class="col-md-8" style="height:500px">
                         <div ng-include="'js/biz/ctrl/usage/children/postman.html'"></div>
                     </div>
                 </div>

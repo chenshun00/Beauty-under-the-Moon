@@ -79,7 +79,7 @@
     border: 1px solid #d9d9d9;
     color: #666;
     background-color: #fff;
-    width: 100%;
+    width: 70%;
     border-radius: 5px
 }
 
@@ -162,4 +162,8 @@ textarea{
 .select ul li:hover {
     background: #4ebbf0;
     color: #fff;
+}
+
+.fff {
+    height: 700px;
 }

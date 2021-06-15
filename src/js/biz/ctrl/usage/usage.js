@@ -19,7 +19,11 @@ angular.module(APPName)
             method: 'GET'
         }
 
-        $scope.jsonData = "{'name':1}";
+        $scope.data = {
+            switch1: true
+        };
+
+        $scope.jsonData = null;
 
         $scope.content = {
             fc: {activeTab: 1},

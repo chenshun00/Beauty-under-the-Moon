@@ -4,7 +4,7 @@
 
 ### 支持的形式
 
-- [x] x-www-form-urlencoded 
+- [x] x-www-form-urlencoded
 - [x] form-data
 - [ ] application/json
 
@@ -17,3 +17,4 @@
 
 - [ ] 支持自定义 `application/json` 输入
 - [ ] 支持自定义请求头
+- [ ] GET 请求参数支持
