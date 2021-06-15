@@ -32,7 +32,7 @@ angular.module(APPName)
             org: [],
             classFie: [],
             action: action,
-            url: 'http://api-inner.raycloud.com/#/?menuIdx=' + projectId + '&action=' + action,
+            documentUrl: 'http://api-inner.raycloud.com/#/?menuIdx=' + projectId + '&action=' + action,
             title: title
         }
 
