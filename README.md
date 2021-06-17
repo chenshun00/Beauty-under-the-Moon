@@ -9,6 +9,7 @@
 - [x] application/json
 
 ### 已解决的问题
+
 - [x] GET 请求参数支持
 - [x] 支持自定义 `application/json` 输入
 - [x] 参数绑定

@@ -137,28 +137,38 @@ angular.module(APPName)
          *  不论是什么，这里都是作为queryString填充在URL上
          */
         $scope.send = function () {
+            //参数收集
             const data = {action: $scope.content.action}
             $scope.properties.forEach(function (item) {
                 data[item.field] = item.value
             })
             $scope.jsonData = null;
-            const headers = {}
-            // if ($scope.postman.method === 'POST' && $scope.applicationJson != null) {
-            headers['Content-Type'] = $scope.postman.contentType
-            // }
+            const headers = {'Content-Type': $scope.postman.contentType}
             const httpContext = {
                 url: $scope.postman.url,
-                data: $scope.postman.applicationJson,
-                params: data,
                 method: $scope.postman.method,
                 headers: headers
             }
+            //    data: $scope.postman.applicationJson,
+            //                 params: data,
             if ($scope.postman.method === 'GET') {
-                delete httpContext.data
+                httpContext.params = data
             }
-            if ($scope.postman.method === 'POST' && $scope.postman.applicationJson === null) {
-                delete httpContext.data
+            if ($scope.postman.method === 'POST') {
+                if ($scope.postman.contentType.indexOf('json') !== -1) {
+                    httpContext.data = $scope.postman.applicationJson
+                } else {
+                    //https://blog.csdn.net/weixin_34212762/article/details/92068021
+                    httpContext.data = data
+                    httpContext.transformRequest = function (obj) {
+                        const str = [];
+                        for (const p in obj)
+                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                        return str.join("&");
+                    }
+                }
             }
+
 
             $http(httpContext).success(function (data) {
                 try {
