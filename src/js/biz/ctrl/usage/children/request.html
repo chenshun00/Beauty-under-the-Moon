@@ -4,7 +4,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-3" style="height:500px">
-                    <div style="height: 400px;overflow: auto">
+                    <div ng-show="!postman.json" style="height: 500px;overflow: auto">
                         <div ng-show="properties.length > 0">
                             <div ng-repeat="property in properties">
                                 <label style="font-weight: normal;margin-left: 0;width: 100%"> {{property.field}}
@@ -19,6 +19,14 @@
                                 <span style="background-color: rgba(135,252,255,0.02);font-size: small">
                                     😯 这个请求没有参数
                                 </span>
+                        </div>
+                    </div>
+
+                    <div ng-show="postman.json" style="height: 500px;overflow: auto">
+                        <div ui-tree id="tree-root">
+                            <ol ui-tree-nodes ng-model="data">
+                                <li ng-repeat="node in data" ui-tree-node ng-include="'js/biz/ctrl/usage/children/nodes_renderer.html'"></li>
+                            </ol>
                         </div>
                     </div>
 

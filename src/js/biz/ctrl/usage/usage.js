@@ -16,14 +16,13 @@ angular.module(APPName)
         const projectId = $stateParams.projectId;//传递近来的ID参数
 
         $scope.postman = {
-            method: 'GET'
+            method: 'GET',
+            tag: 1
         }
 
-        $scope.data = {
-            switch1: true
-        };
-
         $scope.jsonData = null;
+
+        $scope.applicationJson = null;
 
         $scope.content = {
             fc: {activeTab: 1},
@@ -40,6 +39,36 @@ angular.module(APPName)
 
         init();
 
+        $scope.remove = function (scope) {
+            scope.remove();
+        };
+
+        $scope.toggle = function (scope) {
+            scope.toggle();
+        };
+
+        $scope.moveLastToTheBeginning = function () {
+            const a = $scope.data.pop();
+            $scope.data.splice(0, 0, a);
+        };
+
+        $scope.newSubItem = function (scope) {
+            const nodeData = scope.$modelValue;
+            nodeData.nodes.push({
+                id: nodeData.id * 10 + nodeData.nodes.length,
+                title: nodeData.title + '.' + (nodeData.nodes.length + 1),
+                nodes: []
+            });
+        };
+
+        $scope.collapseAll = function () {
+            $scope.$broadcast('angular-ui-tree:collapse-all');
+        };
+
+        $scope.expandAll = function () {
+            $scope.$broadcast('angular-ui-tree:expand-all');
+        };
+
         function init() {
             AllService.getApiDetail(action, projectId).success(function (data) {
                 if (data.code === 0) {
@@ -50,25 +79,31 @@ angular.module(APPName)
                     $scope.postman.method = data.method;
                     $scope.postman.url = domain + data.url;
                     $scope.postman.contentType = data.contentType;
+                    $scope.postman.json = $scope.postman.contentType.indexOf('application/json') !== -1;
+                    if ($scope.postman.json) {
+                        $scope.postman.tag = 2;
+                        $scope.data = data.data;
+                    } else {
+                        $scope.postman.tag = 1;
+                        const req = data.req;
+                        if (req.modelVars) {
+                            req.modelVars.forEach(function (item) {
+                                const params = {};
+                                params.field = item.name;
+                                params.value = item.mockData;
+                                params.type = item.type;
+                                params.required = item.required;
+                                params.desc = item.desc;
+                                $scope.properties.push(params)
+                            })
+                        }
+                    }
                     if ($scope.postman.contentType === 'form-data') {
                         $scope.postman.contentType = 'application/x-www-form-urlencoded;charset=UTF-8'
                     }
                     if ($scope.postman.method === 'GET') {
                         $scope.postman.contentType = null
                     }
-                    const req = data.req;
-                    if (req.modelVars) {
-                        req.modelVars.forEach(function (item) {
-                            const params = {};
-                            params.field = item.name;
-                            params.value = item.mockData;
-                            params.type = item.type;
-                            params.required = item.required;
-                            params.desc = item.desc;
-                            $scope.properties.push(params)
-                        })
-                    }
-
                 } else {
                     Popup.notice(data.errmsg, 2000)
                 }
@@ -97,13 +132,12 @@ angular.module(APPName)
             })
             $scope.jsonData = null;
             const headers = {}
-            $scope.postman.contentType = 'application/json'
-            if ($scope.postman.method === 'POST') {
-                headers['Content-Type'] = $scope.postman.contentType
-            }
+            // if ($scope.postman.method === 'POST' && $scope.applicationJson != null) {
+            headers['Content-Type'] = $scope.postman.contentType
+            // }
             const httpContext = {
                 url: $scope.postman.url,
-                data: data,
+                data: $scope.postman.applicationJson,
                 params: data,
                 method: $scope.postman.method,
                 headers: headers
@@ -111,8 +145,8 @@ angular.module(APPName)
             if ($scope.postman.method === 'GET') {
                 delete httpContext.data
             }
-            if ($scope.postman.method === 'POST') {
-                delete httpContext.params
+            if ($scope.postman.method === 'POST' && $scope.postman.applicationJson === null) {
+                delete httpContext.data
             }
 
             $http(httpContext).success(function (data) {
