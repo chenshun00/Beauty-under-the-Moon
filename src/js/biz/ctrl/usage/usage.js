@@ -69,6 +69,15 @@ angular.module(APPName)
             $scope.$broadcast('angular-ui-tree:expand-all');
         };
 
+        //再来一次反解析，将数据渲染到前台去
+        $scope.changeValue = function (current) {
+            console.log(current)
+            if (!$scope.data) {
+                return
+            }
+            console.log(data)
+        }
+
         function init() {
             AllService.getApiDetail(action, projectId).success(function (data) {
                 if (data.code === 0) {
@@ -80,6 +89,8 @@ angular.module(APPName)
                     $scope.postman.url = domain + data.url;
                     $scope.postman.contentType = data.contentType;
                     $scope.postman.json = $scope.postman.contentType.indexOf('application/json') !== -1;
+                    $scope.postman.requestJsonObject = data.requestJsonObject;
+                    //
                     if ($scope.postman.json) {
                         $scope.postman.tag = 2;
                         $scope.data = data.data;
