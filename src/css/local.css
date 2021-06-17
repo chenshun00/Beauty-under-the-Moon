@@ -83,7 +83,7 @@
     border-radius: 5px
 }
 
-textarea{
+textarea {
     /*别忘了文本域的box-sizing属性值是border-box;所有的边框和padding都是在你固定的宽高的基础上绘制*/
     /*去除点击出现轮廓颜色*/
     outline: none;
@@ -104,6 +104,7 @@ textarea{
     user-select: none;
     -webkit-touch-callout: none;
 }
+
 .select .placeholder {
     position: relative;
     display: block;
@@ -113,9 +114,11 @@ textarea{
     border-radius: 2px;
     cursor: pointer;
 }
+
 .select .placeholder:hover {
     background: #34383c;
 }
+
 .select .placeholder:after {
     position: absolute;
     right: 1em;
@@ -125,19 +128,24 @@ textarea{
     content: '\f078';
     z-index: 10;
 }
+
 .select.is-open .placeholder:after {
     content: '\f077';
 }
+
 .select.is-open ul {
     display: block;
 }
+
 .select.select--white .placeholder {
     background: #fff;
     color: #999;
 }
+
 .select.select--white .placeholder:hover {
     background: #fafafa;
 }
+
 .select ul {
     display: none;
     position: absolute;
@@ -152,6 +160,7 @@ textarea{
     padding: 0;
     z-index: 100;
 }
+
 .select ul li {
     display: block;
     text-align: left;
@@ -159,6 +168,7 @@ textarea{
     color: #999;
     cursor: pointer;
 }
+
 .select ul li:hover {
     background: #4ebbf0;
     color: #fff;
@@ -166,4 +176,11 @@ textarea{
 
 .fff {
     height: 700px;
+}
+
+.f5 {
+    border: none;
+    box-shadow: none;
+    border-bottom: 1px solid rgb(204 204 204);
+    border-radius: 0;
 }

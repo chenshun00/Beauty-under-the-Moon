@@ -9,7 +9,7 @@
                             <div ng-repeat="property in properties">
                                 <label style="font-weight: normal;margin-left: 0;width: 100%"> {{property.field}}
                                     <input style="width: 100%" ng-model="property.value"
-                                           class="form-control input-control"
+                                           class="form-control input-control f5"
                                            type="text"
                                            placeholder="{{property.desc}}">
                                 </label>
@@ -22,9 +22,7 @@
                         </div>
                     </div>
 
-                    <div style="margin-bottom: 1px;display:flex">
-                        <div ng-include="'js/biz/ctrl/usage/children/button.html'"></div>
-                    </div>
+                    <div ng-include="'js/biz/ctrl/usage/children/button.html'"></div>
                 </div>
 
                 <div class="col-md-8" style="height:500px">

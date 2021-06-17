@@ -49,6 +49,13 @@ angular.module(APPName)
                     }
                     $scope.postman.method = data.method;
                     $scope.postman.url = domain + data.url;
+                    $scope.postman.contentType = data.contentType;
+                    if ($scope.postman.contentType === 'form-data') {
+                        $scope.postman.contentType = 'application/x-www-form-urlencoded;charset=UTF-8'
+                    }
+                    if ($scope.postman.method === 'GET') {
+                        $scope.postman.contentType = null
+                    }
                     const req = data.req;
                     if (req.modelVars) {
                         req.modelVars.forEach(function (item) {
@@ -74,17 +81,41 @@ angular.module(APPName)
             });
         };
 
+        /**
+         * 发起http请求，这里还需要详细组织一下
+         * https://docs.angularjs.org/api/ng/service/$http#$http-arguments angularjs文档地址，
+         * data(POST):不支持GET请求
+         *  如果是application/json,那么就是requestBody的内容
+         *  如果是form表单，那么就是form表达的内容
+         * params(POST|GET)
+         *  不论是什么，这里都是作为queryString填充在URL上
+         */
         $scope.send = function () {
             const data = {action: $scope.content.action}
             $scope.properties.forEach(function (item) {
                 data[item.field] = item.value
             })
             $scope.jsonData = null;
-            $http({
+            const headers = {}
+            $scope.postman.contentType = 'application/json'
+            if ($scope.postman.method === 'POST') {
+                headers['Content-Type'] = $scope.postman.contentType
+            }
+            const httpContext = {
                 url: $scope.postman.url,
+                data: data,
                 params: data,
-                method: $scope.postman.method
-            }).success(function (data) {
+                method: $scope.postman.method,
+                headers: headers
+            }
+            if ($scope.postman.method === 'GET') {
+                delete httpContext.data
+            }
+            if ($scope.postman.method === 'POST') {
+                delete httpContext.params
+            }
+
+            $http(httpContext).success(function (data) {
                 try {
                     $scope.jsonData = JSON.stringify(data, undefined, 4)
                 } catch (e) {
@@ -99,20 +130,10 @@ angular.module(APPName)
             });
         }
 
-        $scope.request = function () {
-            $scope.send()
-        }
-
         /**
          * @see clear()
          */
         $scope.reset = function () {
             $scope.clear();
         }
-
-        $scope.choose = function ($event, staff) {
-            $event.stopPropagation();//阻止冒泡
-            staff.checked = !staff.checked
-        };
-
     }]);
