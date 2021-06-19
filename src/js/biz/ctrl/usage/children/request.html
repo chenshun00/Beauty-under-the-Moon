@@ -4,48 +4,11 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-3" style="height:500px">
-
-                    <div ng-show="postman.body">
-                        <div ng-show="!postman.json" style="height: 500px;overflow: auto">
-                            <div ng-show="properties.length > 0">
-                                <div ng-repeat="property in properties">
-                                    <label style="font-weight: normal;margin-left: 0;width: 100%"> {{property.field}}
-                                        <input style="width: 100%" ng-model="property.value"
-                                               class="form-control input-control f5"
-                                               type="text"
-                                               placeholder="{{property.desc}}">
-                                    </label>
-                                </div>
-                            </div>
-                            <div ng-show="properties.length == 0">
-                                <span style="background-color: rgba(135,252,255,0.02);font-size: small">
-                                    😯 这个请求没有参数
-                                </span>
-                            </div>
-                        </div>
-
-                        <div ng-show="postman.json" style="height: 500px;overflow: auto">
-                            <div ui-tree id="tree-root">
-                                <ol ui-tree-nodes ng-model="postman.data">
-                                    <li ng-repeat="node in postman.data" ui-tree-node
-                                        ng-include="'js/biz/ctrl/usage/children/nodes_renderer.html'"></li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div ng-show="!postman.body">
-                        <div style="height: 500px;overflow: auto">
-                            <div ng-repeat="his in history">
-                                <div ng-dblclick="queryHistory(his)" style="cursor:pointer;">
-                                    <span style="font-size: small;color: #ff331f;margin-left: 0;width: 100%"> {{his.time | date:'yyyy-MM-dd HH:mm:ss'}}</span>
-                                    <span style="font-size: medium;color: rgba(2,1,1,0.81)">{{his.action}}</span>
-                                    <div class="separator"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    <!-- 参数 -->
+                    <div ng-include="'js/biz/ctrl/usage/params/param.html'"></div>
+                    <!-- 历史记录 -->
+                    <div ng-include="'js/biz/ctrl/usage/history/history.html'"></div>
+                    <!-- 底部按钮 -->
                     <div ng-include="'js/biz/ctrl/usage/children/button.html'"></div>
                 </div>
 

@@ -1,0 +1,11 @@
+<div ng-show="!postman.body">
+  <div style="height: 500px;overflow: auto">
+    <div ng-repeat="his in history">
+      <div ng-dblclick="queryHistory(his)" style="cursor:pointer;">
+        <span style="font-size: small;color: #ff331f;margin-left: 0;width: 100%"> {{his.time | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+        <span style="font-size: medium;color: rgba(2,1,1,0.81)">{{his.action}}</span>
+        <div class="separator"></div>
+      </div>
+    </div>
+  </div>
+</div>
