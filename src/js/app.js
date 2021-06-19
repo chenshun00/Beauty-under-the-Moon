@@ -1,7 +1,7 @@
 "use strict";
 angular.module(APPName, ['oc.lazyLoad', 'ui.router',
     'ngDialog', 'angularUtils.directives.dirPagination',
-    'angular-popups', 'ngMaterial', 'ngMessages','ui.tree',])
+    'angular-popups', 'ngMaterial', 'ngMessages','ui.tree','ngClickCopy'])
     .config(['$stateProvider',
         '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
 

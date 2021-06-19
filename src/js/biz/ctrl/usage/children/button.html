@@ -3,5 +3,6 @@
 <!--                            <md-switch style="margin:0" ng-model="data.switch1" aria-label="Switch 1">-->
 <!--                                只看必填-->
 <!--                            </md-switch>-->
-<button style="width: 100%" class="btn btn-default" data-ng-click="history()">调用历史</button>
+<button ng-show="postman.body" style="width: 100%" class="btn btn-default" data-ng-click="invokeHistory()">调用历史</button>
+<button ng-show="!postman.body" style="width: 100%" class="btn btn-default" data-ng-click="invokeHistory()">进入查询</button>
 <!--<button style="margin: 5px" class="btn btn-default" data-ng-click="request()">发起调用</button>-->

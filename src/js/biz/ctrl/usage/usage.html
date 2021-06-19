@@ -1,6 +1,7 @@
 <div>
     <h2 style="color: #ff392b;margin-top: 0">
-        {{content.action}}
+        {{content.action}} <span style="font-size: xx-small;cursor:pointer;"> <i class="fa fa-clipboard"
+                                                                                 data-ng-click="copyHrefToClipboard()"></i></span>
         <a target="_blank" style="color: #ff392b" href="{{content.documentUrl}}">
             <span style="font-size: small">
                 {{content.title}}

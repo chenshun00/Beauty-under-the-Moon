@@ -1,5 +1,4 @@
 <div ui-tree-handle class="tree-node tree-node-content" data-nodrag>
-    <!--    <a class="btn" ng-if="node.nodes && node.nodes.length > 0" data-nodrag data-collapsed></a>-->
     <label style="font-weight: normal;margin-left: 0;width: 100%"> <span style="color: #cccccc">{{node.field}}</span>
         <input ng-show="node.type=='normal'" style="width: 100%" ng-model="node.mock"
                class="form-control input-control f5"
@@ -12,11 +11,6 @@
           'glyphicon-chevron-down': !collapsed
         }"></span>
     </label>
-    <!--    <a class="pull-right btn" data-nodrag ng-click="remove(this)"><span-->
-    <!--            class="glyphicon glyphicon-remove"></span></a>-->
-    <!--    <a class="pull-right btn" data-nodrag ng-click="newSubItem(this)"-->
-    <!--       style="margin-right: 8px;"><span-->
-    <!--            class="glyphicon glyphicon-plus"></span></a>-->
 </div>
 <ol ui-tree-nodes ng-model="node.nodes" ng-class="{hidden: collapsed}">
     <li ng-repeat="node in node.nodes" data-nodrag ui-tree-node

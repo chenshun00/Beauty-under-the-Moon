@@ -1,0 +1,29 @@
+<div style="margin-top: 2px" ng-if="postman.method=='POST'">
+
+  <div class="btn-group clearfix" data-toggle="buttons-radio">
+    <a class="btn btn-default" disabled="disabled">x-www-form-urlencoded</a>
+    <a class="btn btn-default" disabled="disabled">application/json</a>
+  </div>
+
+  <div>
+    <div ng-show="postman.tag==1" style="margin-top: 1px" ng-repeat="property in properties">
+      <div>
+        <form class="form-inline" role="form">
+          <div class="form-group">
+            <input ng-model="property.field" type="text" class="form-control f5"
+                   style="width: 150px">
+          </div>
+          <div class="form-group">
+            <input ng-model="property.value" type="text" class="form-control f5" style="width: 360px">
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div ng-show="postman.tag==2">
+                <textarea ng-model="postman.trequestJsonObject" style="width: 100%;height: 100px;" class=" form-control"
+                          placeholder="application/json"></textarea>
+    </div>
+
+  </div>
+</div>

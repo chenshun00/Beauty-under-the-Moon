@@ -1,0 +1,35 @@
+<div class="form-group" style="width: 60%">
+  <input ng-model="postman.url" type="text" class="form-control f5"
+         style="width: 100%;"
+         placeholder="请输入URL"/>
+</div>
+
+<div class="form-group">
+  <button class="btn" data-ng-click="urlParams()">QueryString</button>
+</div>
+
+<div class="form-group">
+  <select disabled="disabled" ng-model="postman.method" class="form-control">
+    <option>GET</option>
+    <option>POST</option>
+  </select>
+</div>
+
+<div style="margin-top: 2px" ng-if="postman.queryString">
+  <div ng-repeat="pp in postman.queryParams">
+    <div class="form-group">
+      <input ng-model="pp.field" type="text" class="form-control f5"
+             style="width: 150px" placeholder="URL Parameter Key">
+    </div>
+    <div class="form-group">
+      <input ng-model="pp.value" type="text" class="form-control f5"
+             placeholder="URL Parameter Value" style="width: 360px">
+    </div>
+    <span style="font-size: medium;cursor:pointer;" data-ng-click="less($index)">
+                     <i class="fa fa-remove"></i>
+                </span>
+    <span style="font-size: medium;cursor:pointer;" data-ng-click="plus($index)">
+                     <i class="fa fa-plus-circle"></i>
+                </span>
+  </div>
+</div>
