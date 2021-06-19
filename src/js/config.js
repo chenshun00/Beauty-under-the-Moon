@@ -1,5 +1,7 @@
 'use strict';
 const APPName = 'routerApp'
+const _DB = 'raycloud'
+const _TABLE = 'invoke'
 
 function resolve(provider, ...file) {
   return provider.load({

@@ -47,6 +47,101 @@ angular.module(APPName)
             const title = $stateParams.title;//传递近来的ID参数
             const projectId = $stateParams.projectId;//传递近来的ID参数
 
+            $scope.history = [];
+
+            const request = window.indexedDB.open(_DB, 1);
+
+            request.onerror = function (event) {
+                console.log('数据库打开报错,' + event);
+            };
+
+            let db;
+
+            request.onsuccess = function (event) {
+                db = request.result;
+                console.log('数据库打开成功');
+                let objectStore;
+                if (!db.objectStoreNames.contains(_TABLE)) {
+                    objectStore = db.createObjectStore(_TABLE, {keyPath: 'id'});
+                    objectStore.createIndex('action', 'action', {unique: false});
+                }
+            };
+
+            request.onupgradeneeded = function (event) {
+                db = event.target.result;
+                let objectStore;
+                if (!db.objectStoreNames.contains(_TABLE)) {
+                    objectStore = db.createObjectStore(_TABLE, {keyPath: 'id'});
+                    objectStore.createIndex('action', 'action', {unique: false});
+                }
+            }
+
+            function add(obj) {
+                const request = db.transaction([_TABLE], 'readwrite')
+                    .objectStore(_TABLE)
+                    .add(obj);
+
+                request.onsuccess = function (event) {
+                    console.log('数据写入成功');
+                };
+
+                request.onerror = function (event) {
+                    console.log('数据写入失败:' + event);
+                }
+            }
+
+            function query(id) {
+                const transaction = db.transaction([_TABLE]);
+                const objectStore = transaction.objectStore(_TABLE);
+                const request = objectStore.get(id);
+                request.onerror = function (event) {
+                    Popup.notice('查询历史记录失败,打开控制台查看日志', 3000)
+                    console.log(event)
+                };
+
+                request.onsuccess = function (event) {
+                    if (request.result) {
+                        $scope.postman = request.result.postman
+                        $scope.postman.body = !$scope.postman.body
+                        $scope.properties = request.result.properties
+                    } else {
+                        console.log('未获得数据记录');
+                    }
+                };
+            }
+
+            function read() {
+                const transaction = db.transaction([_TABLE]);
+                const objectStore = transaction.objectStore(_TABLE);
+                const request = objectStore.index('action')
+                    .openCursor($scope.content.action)
+
+                request.onerror = function (event) {
+                    console.log('事务失败');
+                };
+                const temp = []
+                request.onsuccess = function (event) {
+                    const cursor = event.target.result;
+
+                    if (cursor) {
+                        const tt = cursor.value;
+                        //这里需要组织一下数据,然后更新一下数据材料
+                        temp.push({action: tt.action, time: tt.id})
+                        cursor.continue();
+                    } else {
+                        console.log('没有更多数据了！');
+                    }
+                    $scope.history = temp;
+                };
+            }
+
+            $scope.invokeHistory = function () {
+                $scope.postman.body = !$scope.postman.body
+                if (!$scope.postman.body) {
+                    read()
+                }
+            }
+
             $scope.postman = {
                 method: 'GET',
                 tag: 1,
@@ -74,8 +169,9 @@ angular.module(APPName)
 
             init();
 
-            $scope.invokeHistory = function () {
-                $scope.postman.body = !$scope.postman.body
+            $scope.queryHistory = function (his) {
+                const id = his.time;
+                query(id);
             }
 
             //再来一次反解析，将数据渲染到前台去
@@ -228,12 +324,28 @@ angular.module(APPName)
                     } catch (e) {
                         $scope.postman.jsonData = data
                     }
+                    const save = {
+                        id: new Date().getTime(),
+                        action: $scope.content.action,
+                        properties: $scope.properties,
+                        postman: $scope.postman,
+                        content: $scope.content
+                    }
+                    add(save);
                 }).error(function (data) {
                     try {
                         $scope.postman.jsonData = JSON.stringify(data, undefined, 4)
                     } catch (e) {
                         $scope.postman.jsonData = data
                     }
+                    const save = {
+                        id: new Date().getTime(),
+                        action: $scope.content.action,
+                        properties: $scope.properties,
+                        postman: $scope.postman,
+                        content: $scope.content
+                    }
+                    add(save);
                 });
             }
 
