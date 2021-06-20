@@ -2,7 +2,9 @@
     <div ng-show="!postman.json" style="height: 500px;overflow: auto">
         <div ng-show="properties.length > 0">
             <div ng-repeat="property in properties">
-                <label style="font-weight: normal;margin-left: 0;width: 100%"> {{property.field}}
+                <label style="font-weight: normal;margin-left: 0;width: 100%">
+                    <span ng-show="property.required" style="color: rgba(255,51,31,0.81);font-size: x-large">*</span>
+                    {{property.field}}
                     <input style="width: 100%" ng-model="property.value"
                            class="form-control input-control f5"
                            type="text"

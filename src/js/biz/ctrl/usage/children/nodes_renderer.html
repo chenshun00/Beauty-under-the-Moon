@@ -1,5 +1,9 @@
 <div ui-tree-handle class="tree-node tree-node-content" data-nodrag>
-    <label style="font-weight: normal;margin-left: 0;width: 100%"> <span style="color: #cccccc">{{node.field}}</span>
+    <label style="font-weight: normal;margin-left: 0;width: 100%">
+        <span style="color: #cccccc">
+            <em ng-show="node.required" style="color: rgba(255,51,31,0.81);font-size: x-large">*</em>
+            {{node.field}}
+        </span>
         <input ng-show="node.type=='normal'" style="width: 100%" ng-model="node.mock"
                class="form-control input-control f5"
                type="text" data-ng-blur="changeValue(node)"

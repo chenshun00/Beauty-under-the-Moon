@@ -1,8 +1,13 @@
-<!--<button style="margin: 5px" class="btn btn-default" data-ng-click="clear()">清 空-->
-<!--</button>-->
-<!--                            <md-switch style="margin:0" ng-model="data.switch1" aria-label="Switch 1">-->
-<!--                                只看必填-->
-<!--                            </md-switch>-->
-<button ng-show="postman.body" style="width: 100%" class="btn btn-default" data-ng-click="invokeHistory()">调用历史</button>
-<button ng-show="!postman.body" style="width: 100%" class="btn btn-default" data-ng-click="invokeHistory()">进入查询</button>
-<!--<button style="margin: 5px" class="btn btn-default" data-ng-click="request()">发起调用</button>-->
+<div>
+    <!--    <md-switch ng-show="postman.body" ng-init="temp.switch1=true" style="margin:0;width: 100%" ng-model="temp.switch1" aria-label="Switch 1">-->
+    <!--        -->
+    <!--    </md-switch>-->
+    <button ng-show="postman.body" style="width: 45%;margin-top: 2px" class="btn btn-default" data-ng-click="reset()">清空
+    </button>
+    <button ng-show="postman.body" style="width: 45%;margin-top: 2px" class="btn btn-default"
+            data-ng-click="invokeHistory()">调用历史
+    </button>
+    <button ng-show="!postman.body" style="width: 100%;margin-top: 2px" class="btn btn-default"
+            data-ng-click="invokeHistory()">进入查询
+    </button>
+</div>
