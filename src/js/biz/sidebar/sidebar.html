@@ -25,7 +25,7 @@
                 </a>
                 <ul class="nav nav-second-level" ng-show="entry.active">
                     <li ng-repeat="model in entry.apiDetails">
-                        <a ui-sref="home.usage({action:'{{model.action}}',title:'{{model.title}}',projectId:'{{model.projectId}}'})">
+                        <a ng-style="{'color':'{{markColor}}'}" ui-sref="home.usage({action:'{{model.action}}',title:'{{model.title}}',projectId:'{{model.projectId}}'})">
                             <span style="font-size: 17px"> {{model.action}}</span><br>
                             (<span style="font-size: small">{{model.title}}</span>)
                         </a>

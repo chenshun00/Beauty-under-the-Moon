@@ -12,32 +12,46 @@ angular.module(APPName)
             scope: {},
             controller: function ($rootScope, $scope, $stateParams, $location, ProjectService) {
                 $scope.apps = [];
+                $scope.markColor = '#555';
                 $scope.sidebarProject = {projectInfo: [], projectId: '请选择项目'};
                 ProjectService.getBusiness().success(function (result) {
-                    const initHashApp = $location.path().split('/')[3];
-                    let first = false;
+                    const projectId = $location.path().split('/')[5];
+                    let action = $location.path().split('/')[3];
                     const data = result.listApiDetails;
+                    let first = false;
                     data.forEach(function (item) {
-                        if (!first) {
-                            first = true
-                            $scope.sidebarProject.projectId = item.projectId
-                        }
                         const temp = {
                             projectId: item.projectId,
                             categories: item.categories,
                             projectName: item.projectName
                         };
+                        if (projectId === undefined) {
+                            if (!first) {
+                                first = true
+                                action = 'nothing'
+                                $scope.sidebarProject.projectId = item.projectId
+                            }
+                        } else if (projectId === item.projectId) {
+                            $scope.sidebarProject.projectId = item.projectId
+                        }
                         $scope.sidebarProject.projectInfo.push(temp)
                     });
-                    $scope.projectChange($scope.sidebarProject.projectId)
+                    $scope.projectChange($scope.sidebarProject.projectId, action)
                 })
 
-                $scope.projectChange = function (projectId) {
+                $scope.projectChange = function (projectId, action) {
                     $scope.apps = [];
                     $scope.sidebarProject.projectInfo.forEach(function (item) {
                         if (item.projectId === projectId) {
                             item.categories.forEach(function (zz) {
-                                $scope.apps.push({catName:zz.catName,apiDetails:zz.apiDetails});
+                                const app = {catName: zz.catName, apiDetails: zz.apiDetails};
+                                zz.apiDetails.forEach(function (a) {
+                                    if (a.action === action) {
+                                        app.active = true
+                                        $scope.markColor = '#E70A0AFF';
+                                    }
+                                })
+                                $scope.apps.push(app);
                             })
                         }
                     });
