@@ -5,11 +5,13 @@
   <div style="margin-top: 1px" ng-repeat="property in properties">
     <div class="form-group">
       <input type="text" class="form-control f5"
+             ng-model="property.field"
              style="width: 150px" placeholder="URL Parameter Value">
     </div>
     <div class="form-group">
       <input type="text" class="form-control f5"
-             placeholder="URL Parameter Value" style="width: 360px">
+             ng-model="property.value"
+             placeholder="{{property.desc}}" style="width: 360px">
     </div>
   </div>
 </div>
