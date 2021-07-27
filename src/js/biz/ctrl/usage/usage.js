@@ -306,6 +306,7 @@ angular.module(APPName)
                     httpContext.params = query
                     if ($scope.postman.contentType.indexOf('json') !== -1) {
                         httpContext.data = $scope.postman.requestJsonObject
+                        httpContext.params.action = action
                     } else {
                         //https://blog.csdn.net/weixin_34212762/article/details/92068021
                         httpContext.data = data
