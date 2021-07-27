@@ -215,6 +215,7 @@ angular.module(APPName)
                         }
                         $scope.postman.method = data.method;
                         $scope.postman.url = domain + data.url;
+                        $scope.postman.httpPath = data.url;
                         $scope.postman.contentType = data.contentType;
                         $scope.postman.json = $scope.postman.contentType.indexOf('application/json') !== -1;
                         //
@@ -292,6 +293,9 @@ angular.module(APPName)
 
                 $scope.postman.jsonData = null;
                 const headers = {'Content-Type': $scope.postman.contentType}
+                if ($scope.postman.httpPath === '/') {
+                    $scope.postman.url = $scope.postman.url + "a"
+                }
                 const httpContext = {
                     url: $scope.postman.url,
                     method: $scope.postman.method,
